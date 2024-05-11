@@ -94,7 +94,7 @@ onMounted(() => {
           <div class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold">查看DEMO主页</div>
         </a>
       </div>
-      <div class="mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px]"></div>
+      <div class="bg-pc bg-cover bg-no-repeat mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px]"></div>
     </div>
     <!--响应式-->
     <div class="bg-white min-h-[900px] py-8">
@@ -105,9 +105,9 @@ onMounted(() => {
         <div class="text-2xl font-semibold">一站适配，无缝体验</div>
       </div>
       <div class="flex items-end justify-center">
-        <div class="w-[64vw] h-[36vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
-        <div class="w-[28vw] h-[34vw] rounded-2xl border-slate-700 border-[20px] border-solid"></div>
-        <div class="w-[18vw] h-[32vw] rounded-2xl border-slate-700 border-[20px] border-solid"></div>
+        <div class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[36vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        <div class="bg-tablet bg-cover bg-no-repeat w-[28vw] h-[34vw] rounded-2xl border-slate-700 border-[20px] border-solid"></div>
+        <div class="bg-mobile bg-cover bg-no-repeat w-[18vw] h-[32vw] rounded-2xl border-slate-700 border-[20px] border-solid"></div>
       </div>
     </div>
     <!--瀑布流-->
@@ -194,7 +194,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex items-center justify-center">
-        <div class="w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        <div class="bg-markdown bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
       </div>
     </div>
     <!--个性化配色白-->
@@ -205,7 +205,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex items-center justify-center">
-        <div class="w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        <div class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
       </div>
     </div>
     <!--个性化配色黑-->
@@ -216,7 +216,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex items-center justify-center">
-        <div class="w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        <div class="bg-pc-dark bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
       </div>
     </div>
     <!--本项目所用技术-->
@@ -308,5 +308,20 @@ onMounted(() => {
 <style lang="postcss">
 .technology {
   background: linear-gradient(180deg, #FFFFFF 50%, #F3F3F3 100%);
+}
+.bg-pc{
+  background-image: url('@/assets/image/pc.webp');
+}
+.bg-pc-dark{
+  background-image: url('@/assets/image/pc_dark.webp');
+}
+.bg-tablet{
+  background-image: url('@/assets/image/tablet.webp');
+}
+.bg-mobile{
+  background-image: url('@/assets/image/mobile.webp');
+}
+.bg-markdown{
+  background-image: url('@/assets/image/markdown.png');
 }
 </style>

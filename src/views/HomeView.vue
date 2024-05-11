@@ -79,7 +79,7 @@ gsap.registerPlugin(TextPlugin)
 
 onMounted(() => {
   ScrollTrigger.defaults({
-    toggleActions:"restart pause resume none",
+    toggleActions: 'restart pause resume none'
     //markers:true
   })
 
@@ -148,41 +148,41 @@ onMounted(() => {
     end: '+=1000',
     pin: true,
     //markers: true,
-    id:'sc2',
+    id: 'sc2',
     scrub: 1,
     animation:
       gsap.timeline()
-      .fromTo('#pc', { x: 300},{x: 40,direction:1})
-      .fromTo('#ip',{x:900},{x:-80,direction:1},'<')
-      .fromTo('#pe',{x:900},{x:-120},'0.1').to('#pe',{x:-120,direction:5},'1')
+        .fromTo('#pc', { x: 300 }, { x: 40, direction: 1 })
+        .fromTo('#ip', { x: 900 }, { x: -80, direction: 1 }, '<')
+        .fromTo('#pe', { x: 900 }, { x: -120 }, '0.1').to('#pe', { x: -120, direction: 5 }, '1')
   })
   //瀑布流动画
   ScrollTrigger.create({
     trigger: '#sc3',
-    start: 'top center',
-    end: 'bottom center',
-    //pin: true,
+    start: 'top',
+    end: 'bottom',
+    pin: true,
     markers: true,
-    id:'sc3',
+    id: 'sc3',
     scrub: 2,
     animation:
-    gsap.timeline()
-      /*.from('#title-pb',{
-        y: -100,
-        scale: 0.8,
-        opacity: 0,
-        stagger: 0.3,
-        ease: 'power1.inOut',
-        duration:1},'-2')*/
-      /*.from('#sc3',{background:'#fff',duration:1,ease: "power1.out"})*/
-      .from('#card', {
-        y: -100,
-        scale: 0.8,
-        opacity: 0,
-        stagger: 0.1,
-        ease: 'power1.inOut',
-        duration:2
-      },'<')
+      gsap.timeline()
+        /*.from('#title-pb',{
+          y: -100,
+          scale: 0.8,
+          opacity: 0,
+          stagger: 0.3,
+          ease: 'power1.inOut',
+          duration:1},'-2')*/
+        /*.from('#sc3',{background:'#fff',duration:1,ease: "power1.out"})*/
+        .from('#card', {
+          y: -100,
+          scale: 0.8,
+          opacity: 0,
+          stagger: 0.1,
+          ease: 'power1.inOut',
+          duration: 2
+        }, '<')
 
   })
 
@@ -192,7 +192,7 @@ onMounted(() => {
     start: 'top top',
     end: 'bottom',
     pin: true,
-    id:'sc4',
+    id: 'sc4',
     //scrub: true,
     animation:
       gsap.from('#img-ssr', {
@@ -204,6 +204,21 @@ onMounted(() => {
       })
   })
 
+  //个性化配色动画
+  ScrollTrigger.create({
+    trigger: '#sc6',
+    start: 'top',
+    end: '+=3000',
+    pin: true,
+    scrub: 2,
+    animation:
+      gsap.to("#sc6-dark", {
+        clipPath: "ellipse(100% 120% at 50% 0%)",
+        duration: 1, // 你可以根据需要调整动画的持续时间
+        ease: "power1.inOut"
+      })
+  })
+
   //所用技术动画
   ScrollTrigger.create({
     trigger: '#sc9',
@@ -212,7 +227,7 @@ onMounted(() => {
     //pin: true,
     scrub: 1,
     animation:
-      gsap.fromTo('#img-logo',{scale:0.8},{scale:1.2})
+      gsap.fromTo('#img-logo', { scale: 0.8 }, { scale: 1.2 })
   })
 
 })
@@ -222,14 +237,14 @@ onMounted(() => {
 <template>
   <div class="max-w-full overflow-hidden">
     <!--顶部主页-->
-    <div class="min-h-[900px] pt-24" id="screen1">
+    <div id="screen1" class="min-h-[900px] pt-24">
       <div class="flex flex-col items-center gap-3">
         <h1 class="text-slate-700 text-5xl font-semibold"><span id="title1">现代化响应式</span> <span
-          class="font-semibold text-indigo-600" id="title2">博客界面</span></h1>
-        <p class="text-lg text-slate-500 font-semibold" id="title3">使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI
+          id="title2" class="font-semibold text-indigo-600">博客界面</span></h1>
+        <p id="title3" class="text-lg text-slate-500 font-semibold">使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI
           开发</p>
         <a href="#">
-          <div class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold" id="btn-lookDemo">
+          <div id="btn-lookDemo" class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold">
             查看DEMO主页
           </div>
         </a>
@@ -238,7 +253,7 @@ onMounted(() => {
            class="bg-pc bg-cover bg-no-repeat mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px]"></div>
     </div>
     <!--响应式-->
-    <div class="bg-white min-h-[900px] py-8" id="sc2">
+    <div id="sc2" class="bg-white min-h-[900px] py-8">
       <div class="flex flex-col items-center gap-3 py-8">
         <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           响应式设计
@@ -255,10 +270,11 @@ onMounted(() => {
       </div>
     </div>
     <!--瀑布流-->
-    <div class="bg-[#242424] w-full h-[1000px] relative overflow-hidden" id="sc3">
-      <div class="w-[1920px] h-[1000px] min-h-[698px] py-8 absolute top-0 left-1/2 -translate-x-1/2">
+    <div id="sc3" class="bg-[#242424] w-full h-[950px] relative overflow-hidden">
+      <div class="w-[1920px] h-[950px] min-h-[698px] py-8 absolute top-0 left-1/2 -translate-x-1/2">
         <div class="flex flex-col items-center gap-3 py-8">
-          <div id="title-pb" class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+          <div id="title-pb"
+               class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
             瀑布流布局
           </div>
           <div id="title-pb" class="text-2xl font-semibold text-gray-100">创意无限，内容流动</div>
@@ -278,7 +294,7 @@ onMounted(() => {
       </div>
     </div>
     <!--SSR-->
-    <div class="bg-[#242424] min-h-[900px] py-8 flex flex-col gap-40" id="sc4">
+    <div id="sc4" class="bg-[#242424] min-h-[900px] py-8 flex flex-col gap-40">
       <div class="flex flex-col items-center gap-3 py-8">
         <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           SSR服务器渲染
@@ -290,36 +306,36 @@ onMounted(() => {
       </div>
       <div class="flex items-end justify-center">
         <div class="flex items-start gap-2">
-          <div class="w-[100px] flex flex-col items-center justify-center gap-2" id="img-ssr">
+          <div id="img-ssr" class="w-[100px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/internet.svg">
             <p class="text-white text-center text-lg font-semibold">用户请求</p>
           </div>
-          <div class="w-[50px]" id="img-ssr">
+          <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
-          <div class="w-[100px] flex flex-col items-center justify-center gap-2" id="img-ssr">
+          <div id="img-ssr" class="w-[100px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/server.svg">
             <p class="text-white text-center text-lg font-semibold">服务器渲染HTML</p>
           </div>
-          <div class="w-[50px]" id="img-ssr">
+          <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
-          <div class="w-[100px] flex flex-col items-center justify-center gap-2" id="img-ssr">
+          <div id="img-ssr" class="w-[100px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/device.svg">
             <p class="text-white text-center text-lg font-semibold">接收HTML/CSS
               JavaScript</p>
           </div>
-          <div class="w-[50px]" id="img-ssr">
+          <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
-          <div class="w-[120px] flex flex-col items-center justify-center gap-2" id="img-ssr">
+          <div id="img-ssr" class="w-[120px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/internet.svg">
             <p class="text-white text-center text-lg font-semibold">客户端加载</p>
           </div>
-          <div class="w-[50px]" id="img-ssr">
+          <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
-          <div class="w-[120px] flex flex-col items-center justify-center gap-2" id="img-ssr">
+          <div id="img-ssr" class="w-[120px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/window.svg">
             <p class="text-white text-center text-lg font-semibold">全部加载完成</p>
           </div>
@@ -327,7 +343,7 @@ onMounted(() => {
       </div>
     </div>
     <!--MarkDown-->
-    <div class="bg-[#242424] min-h-[900px] py-8 flex justify-center gap-14">
+    <div id="sc5" class="bg-[#242424] min-h-[900px] py-8 flex justify-center gap-14">
       <div class="flex flex-col justify-center gap-3 py-8 w-[365px]">
         <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           MarkDown文章
@@ -342,32 +358,35 @@ onMounted(() => {
           class="bg-markdown bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
       </div>
     </div>
-    <!--个性化配色白-->
-    <div class="bg-gradient-to-b from-[#FFFFFF] to-[#EBEBEB] min-h-[900px] py-8">
-      <div class="flex flex-col items-center gap-3 py-8">
-        <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
-          个性化配色
+    <!--个性化配色-->
+    <div id="sc6" class="relative min-h-[900px]">
+      <!--白-->
+      <div id="sc6-white" class="absolute w-full bg-gradient-to-b from-[#FFFFFF] to-[#EBEBEB] py-8">
+        <div class="flex flex-col items-center gap-3 py-8">
+          <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+            个性化配色
+          </div>
+        </div>
+        <div class="flex items-center justify-center">
+          <div
+            class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
         </div>
       </div>
-      <div class="flex items-center justify-center">
-        <div
-          class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
-      </div>
-    </div>
-    <!--个性化配色黑-->
-    <div class="bg-[#242424] min-h-[900px] py-8">
-      <div class="flex flex-col items-center gap-3 py-8">
-        <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
-          个性化配色
+      <!--黑-->
+      <div id="sc6-dark" class="absolute w-full bg-[#242424] py-8">
+        <div class="flex flex-col items-center gap-3 py-8">
+          <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+            个性化配色
+          </div>
         </div>
-      </div>
-      <div class="flex items-center justify-center">
-        <div
-          class="bg-pc-dark bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        <div class="flex items-center justify-center">
+          <div
+            class="bg-pc-dark bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        </div>
       </div>
     </div>
     <!--本项目所用技术-->
-    <div class="technology min-h-[900px] py-8 overflow-hidden" id="sc9">
+    <div id="sc9" class="technology min-h-[900px] py-8 overflow-hidden">
       <div class="top-1/2 left-1/2 -translate-x-1/2 h-[900px] w-[1366px] relative">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 text-5xl font-bold">本项目所用技术</div>
         <div id="img-logo">
@@ -383,7 +402,7 @@ onMounted(() => {
           <a class="absolute top-[423px] left-[12px]" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML">
             <img alt="HTML Icon" src="@/assets/image/icon/HTML@1x.svg">
           </a>
-          <a class="absolute top-[23px] left-[34px]" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">
+          <a class="absolute top-[100px] left-[34px]" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">
             <img alt="JavaScript Icon" src="@/assets/image/icon/JavaScript@1x.svg">
           </a>
           <a class="absolute top-[675px] left-[1234px]" href="https://mastergo.com/?">
@@ -410,7 +429,7 @@ onMounted(() => {
           <a class="absolute top-[637px] left-[273px]" href="https://tailwindcss.com/">
             <img alt="Tailwind Icon" src="@/assets/image/icon/Tailwind@1x.svg">
           </a>
-          <a class="absolute top-[60px] left-[1280px]" href="https://www.typescriptlang.org/">
+          <a class="absolute top-[100px] left-[1280px]" href="https://www.typescriptlang.org/">
             <img alt="TypeScript Icon" src="@/assets/image/icon/TypeScript@1x.svg">
           </a>
           <a class="absolute top-[136px] left-[680px]" href="https://cn.vitejs.dev/">
@@ -478,5 +497,9 @@ onMounted(() => {
 
 .bg-markdown {
   background-image: url('@/assets/image/markdown.png');
+}
+
+#sc6-dark{
+  clip-path: ellipse(60% 0% at 50% 0%);
 }
 </style>

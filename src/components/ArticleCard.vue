@@ -11,7 +11,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <Card class="w-full rounded-2xl overflow-hidden shadow bg-white">
+  <Card class="w-full rounded-2xl overflow-hidden shadow bg-white" id="card">
     <img
       v-if="props.article.coverImageSrc"
       :src="props.article.coverImageSrc"

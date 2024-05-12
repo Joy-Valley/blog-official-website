@@ -79,9 +79,23 @@ gsap.registerPlugin(TextPlugin)
 
 onMounted(() => {
   ScrollTrigger.defaults({
-    toggleActions: 'restart pause resume none'
-    //markers:true
+    toggleActions: 'restart pause resume none',
+    //markers: {startColor: "green", endColor: "red", fontSize: "16px", fontWeight: "bold", indent: 20}
   })
+
+  gsap.registerEffect({
+    name: "fadeOut",
+    effect: (targets:any) => {
+      return gsap.from(targets, {
+        y:-20,
+        opacity:0,
+        stagger:0.3,
+        duration:2
+      });
+    },
+    //default:{stagger:0.3},
+    extendTimeline: true
+  });
 
   gsap.timeline()
     //标题1
@@ -106,15 +120,9 @@ onMounted(() => {
       ease: 'none'
     })
     //查看Demo按钮
-    .fromTo('#btn-lookDemo', {
+    .from('#btn-lookDemo', {
       y: 50,
-      scale: 0.5,
       opacity: 0
-    }, {
-      duration: 0.8,
-      y: 0,
-      scale: 1,
-      opacity: 1
     })
 
   gsap.fromTo('#title3', {
@@ -136,100 +144,180 @@ onMounted(() => {
     end: 'bottom',
     //markers: true,
     pin: true,
-    scrub: 2
-    //animation:
-    //gsap.fromTo('#img1', { x: 0 }, { x: -200, scale: 0.7, ease: 'expoScale(0.5,7,none)' })
   })
 
   //响应式动画
   ScrollTrigger.create({
     trigger: '#sc2',
     start: 'top top',
-    end: '+=1000',
+    end: 'bottom -500',
     pin: true,
     //markers: true,
     id: 'sc2',
-    scrub: 1,
-    animation:
-      gsap.timeline()
-        .fromTo('#pc', { x: 300 }, { x: 40, direction: 1 })
-        .fromTo('#ip', { x: 900 }, { x: -80, direction: 1 }, '<')
-        .fromTo('#pe', { x: 900 }, { x: -120 }, '0.1').to('#pe', { x: -120, direction: 5 }, '1')
   })
+const tl2 = gsap.timeline({
+  scrollTrigger:{
+    trigger: '#sc2',
+    start: 'top top',
+    end: 'bottom top',
+    //markers:true,
+    scrub: 2,
+  }
+})
+tl2.fromTo('#pc', { x: 300 }, { x: 40})
+  .fromTo('#ip', { x: 900 }, { x: -80,ease: "power1.inOut"}, '<')
+  .fromTo('#pe', { x: 900 }, { x: -120,ease: "power1.inOut"},'-=0.4')
+  .from('#title-sc2',{y:20,opacity:0,stagger:0.2},'<')
+
   //瀑布流动画
   ScrollTrigger.create({
     trigger: '#sc3',
     start: 'top',
     end: 'bottom',
     pin: true,
-    markers: true,
+    //markers: true,
     id: 'sc3',
-    scrub: 2,
-    animation:
-      gsap.timeline()
-        /*.from('#title-pb',{
-          y: -100,
-          scale: 0.8,
-          opacity: 0,
-          stagger: 0.3,
-          ease: 'power1.inOut',
-          duration:1},'-2')*/
-        /*.from('#sc3',{background:'#fff',duration:1,ease: "power1.out"})*/
-        .from('#card', {
-          y: -100,
-          scale: 0.8,
-          opacity: 0,
-          stagger: 0.1,
-          ease: 'power1.inOut',
-          duration: 2
-        }, '<')
-
   })
+  const tl3 = gsap.timeline({
+    scrollTrigger:{
+      trigger:'#sc3',
+      start:'top 80%',
+      end:'bottom 70%',
+      scrub:2,
+      //markers:true
+    }
+  })
+  tl3
+    .from('#card', {
+      y: -100,
+      scale: 0.8,
+      opacity: 0,
+      stagger: 0.1,
+      ease: 'power1.inOut',
+      duration: 2
+    })
+    .fadeOut('#title-pb','-=2')
+
 
   //SSR动画
   ScrollTrigger.create({
     trigger: '#sc4',
     start: 'top top',
-    end: 'bottom',
+    end: 'bottom -500',
     pin: true,
+    //markers:true,
     id: 'sc4',
-    //scrub: true,
-    animation:
-      gsap.from('#img-ssr', {
-        y: -50,
-        scale: 0.5,
-        opacity: 0,
-        stagger: 0.2,
-        ease: 'back.in'
-      })
   })
+  const tl4 = gsap.timeline({
+    scrollTrigger:{
+      trigger:'#sc4',
+      start:'top 40%',
+      end:'bottom 60%',
+      scrub:2,
+      id:'ssr',
+      //markers:true,
+    }
+  })
+  tl4
+    .fadeOut('#title-ssr')
+    .from('#img-ssr',{
+      x: -50,
+      scale: 0.5,
+      opacity: 0,
+      stagger: 0.2,
+      ease: 'power1.inOut',
+    })
+
+  //markDown
+  ScrollTrigger.create({
+    trigger: '#sc5',
+    start: 'top top',
+    end: 'bottom -200',
+    pin: true,
+    //markers:true,
+  })
+  const tl5 = gsap.timeline({
+    scrollTrigger:{
+      trigger:'#sc5',
+      start:'top 60%',
+      end:'bottom 40%',
+      scrub:1,
+      //markers:true,
+    }
+  })
+  tl5
+    .from('#img-mkd',{
+      x:100,
+      opacity:0,
+      scale:1.2,
+      ease:"power2.out"
+    })
+    .from('#title-mkd',{
+      x:50,
+      opacity:0,
+      stagger:0.2,
+    })
 
   //个性化配色动画
   ScrollTrigger.create({
     trigger: '#sc6',
     start: 'top',
-    end: '+=3000',
+    end: 'bottom -200',
     pin: true,
-    scrub: 2,
-    animation:
-      gsap.to("#sc6-dark", {
-        clipPath: "ellipse(100% 120% at 50% 0%)",
-        duration: 1, // 你可以根据需要调整动画的持续时间
-        ease: "power1.inOut"
-      })
+    //markers:true
+  })
+  gsap.to("#sc6-dark", {
+    scrollTrigger:{
+      trigger:'#sc6',
+      start:'top 40%',
+      end:'bottom 70%',
+      scrub:1,
+      //markers:true,
+    },
+    clipPath: "ellipse(100% 120% at 50% 0%)",
+    duration: 1, // 你可以根据需要调整动画的持续时间
+    ease: "power1.inOut"
   })
 
   //所用技术动画
   ScrollTrigger.create({
     trigger: '#sc9',
-    start: 'top +500',
-    end: '+=2000',
-    //pin: true,
-    scrub: 1,
-    animation:
-      gsap.fromTo('#img-logo', { scale: 0.8 }, { scale: 1.2 })
+    start: 'top -50',
+    end: 'bottom -200',
+    //markers:true,
+    pin:true
   })
+  const tl9 = gsap.timeline({
+    scrollTrigger:{
+      trigger:'#sc9',
+      start:'top 70%',
+      end:'bottom 30%',
+      scrub:2,
+      //markers:true,
+    }
+  })
+  tl9.fromTo('#img-logo', { scale: 0.7 }, { scale: 1,ease: "power1.in"})
+    .from('#title-js',{scale:0.7, opacity:0,duration:1,ease: 'power3.Out'},'-=0.3')
 
+  //结尾
+  ScrollTrigger.create({
+    trigger: '#sc10',
+    start: 'top top',
+    end: 'bottom -100',
+    //markers:true,
+    pin:true
+  })
+  gsap.from('#title-sj',{
+    scrollTrigger:{
+      trigger:'#sc10',
+      start:'top 70%',
+      end:'bottom 50%',
+      scrub:2,
+    },
+    y:-20,
+    opacity:0,
+    stagger:0.3
+  })
 })
 
 </script>
@@ -237,7 +325,7 @@ onMounted(() => {
 <template>
   <div class="max-w-full overflow-hidden">
     <!--顶部主页-->
-    <div id="screen1" class="min-h-[900px] pt-24">
+    <div id="screen1" class="min-h-[1080px] pt-24">
       <div class="flex flex-col items-center gap-3">
         <h1 class="text-slate-700 text-5xl font-semibold"><span id="title1">现代化响应式</span> <span
           id="title2" class="font-semibold text-indigo-600">博客界面</span></h1>
@@ -250,31 +338,31 @@ onMounted(() => {
         </a>
       </div>
       <div id="img1"
-           class="bg-pc bg-cover bg-no-repeat mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px]"></div>
+           class="bg-pc bg-cover bg-no-repeat mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px] shadow-xl"></div>
     </div>
     <!--响应式-->
     <div id="sc2" class="bg-white min-h-[900px] py-8">
       <div class="flex flex-col items-center gap-3 py-8">
-        <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+        <div id="title-sc2" class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           响应式设计
         </div>
-        <div class="text-2xl font-semibold">一站适配，无缝体验</div>
+        <div id="title-sc2" class="text-2xl font-semibold">一站适配，无缝体验</div>
       </div>
       <div class="flex items-end justify-center">
         <div id="pc"
-             class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[36vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+             class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[36vw] rounded-2xl border-slate-700 border-[12px] border-solid"></div>
         <div id="ip"
-             class="bg-tablet bg-cover bg-no-repeat w-[28vw] h-[34vw] rounded-2xl border-slate-700 border-[20px] border-solid"></div>
+             class="bg-tablet bg-cover bg-no-repeat w-[28vw] h-[34vw] rounded-2xl border-slate-700 border-[10px] border-solid"></div>
         <div id="pe"
-             class="bg-mobile bg-cover bg-no-repeat w-[18vw] h-[32vw] rounded-2xl border-slate-700 border-[20px] border-solid"></div>
+             class="bg-mobile bg-cover bg-no-repeat w-[18vw] h-[32vw] rounded-2xl border-slate-700 border-[8px] border-solid"></div>
       </div>
     </div>
     <!--瀑布流-->
-    <div id="sc3" class="bg-[#242424] w-full h-[950px] relative overflow-hidden">
-      <div class="w-[1920px] h-[950px] min-h-[698px] py-8 absolute top-0 left-1/2 -translate-x-1/2">
+    <div id="sc3" class="bg-[#242424] w-full h-[1080px] relative overflow-hidden">
+      <div class="w-[1920px] h-full min-h-[698px] py-8 absolute top-0 left-1/2 -translate-x-1/2">
         <div class="flex flex-col items-center gap-3 py-8">
           <div id="title-pb"
-               class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+               class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
             瀑布流布局
           </div>
           <div id="title-pb" class="text-2xl font-semibold text-gray-100">创意无限，内容流动</div>
@@ -296,11 +384,11 @@ onMounted(() => {
     <!--SSR-->
     <div id="sc4" class="bg-[#242424] min-h-[900px] py-8 flex flex-col gap-40">
       <div class="flex flex-col items-center gap-3 py-8">
-        <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+        <div id="title-ssr" class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           SSR服务器渲染
         </div>
-        <div class="text-white text-2xl font-semibold">即时渲染，SEO先行</div>
-        <div class="text-white text-lg font-medium">
+        <div id="title-ssr" class="text-white text-2xl font-semibold">即时渲染，SEO先行</div>
+        <div id="title-ssr" class="text-white text-lg font-medium">
           对于搜索引擎优化而言，服务器端渲染是一大利器。它允许搜索引擎爬虫更有效地索引您的网页内容，提高网站在搜索结果中的排名，从而吸引更多用户。
         </div>
       </div>
@@ -343,52 +431,52 @@ onMounted(() => {
       </div>
     </div>
     <!--MarkDown-->
-    <div id="sc5" class="bg-[#242424] min-h-[900px] py-8 flex justify-center gap-14">
-      <div class="flex flex-col justify-center gap-3 py-8 w-[365px]">
-        <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+    <div id="sc5" class="bg-[#242424] h-[900px] py-8 flex justify-center gap-14">
+      <div class="flex flex-col justify-center gap-3 py-8 w-[365px] h-full">
+        <div id="title-mkd" class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           MarkDown文章
         </div>
-        <div class="text-white text-2xl font-semibold">简洁之美，效率之选</div>
-        <div class="text-white text-lg font-medium">
+        <div id="title-mkd" class="text-white text-2xl font-semibold">简洁之美，效率之选</div>
+        <div id="title-mkd" class="text-gray-100 text-lg font-light leading-relaxed">
           Markdown文章以其简洁易读的语法、跨平台兼容性和高效的内容管理，成为提升写作效率、确保文档可读性、并便于版本控制和多格式转换的理想选择。
         </div>
       </div>
       <div class="flex items-center justify-center">
-        <div
-          class="bg-markdown bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+        <div id="img-mkd"
+          class="bg-markdown bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[16px] border-solid"></div>
       </div>
     </div>
     <!--个性化配色-->
     <div id="sc6" class="relative min-h-[900px]">
       <!--白-->
-      <div id="sc6-white" class="absolute w-full bg-gradient-to-b from-[#FFFFFF] to-[#EBEBEB] py-8">
+      <div id="sc6-white" class="absolute h-full w-full bg-gradient-to-b from-[#FFFFFF] to-[#EBEBEB] py-8">
         <div class="flex flex-col items-center gap-3 py-8">
-          <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+          <div class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
             个性化配色
           </div>
         </div>
         <div class="flex items-center justify-center">
           <div
-            class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+            class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[16px] border-solid"></div>
         </div>
       </div>
       <!--黑-->
-      <div id="sc6-dark" class="absolute w-full bg-[#242424] py-8">
+      <div id="sc6-dark" class="absolute h-full w-full bg-[#242424] py-8">
         <div class="flex flex-col items-center gap-3 py-8">
-          <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+          <div class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
             个性化配色
           </div>
         </div>
         <div class="flex items-center justify-center">
           <div
-            class="bg-pc-dark bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[24px] border-solid"></div>
+            class="bg-pc-dark bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[16px] border-solid"></div>
         </div>
       </div>
     </div>
     <!--本项目所用技术-->
-    <div id="sc9" class="technology min-h-[900px] py-8 overflow-hidden">
-      <div class="top-1/2 left-1/2 -translate-x-1/2 h-[900px] w-[1366px] relative">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 text-5xl font-bold">本项目所用技术</div>
+    <div id="sc9" class="technology h-[1000px] py-8 overflow-hidden">
+      <div class="left-1/2 -translate-x-1/2 w-[1366px] relative h-full">
+        <div id="title-js" class="absolute top-1/2 left-1/2 -translate-x-1/2 text-5xl font-bold">本项目所用技术</div>
         <div id="img-logo">
           <a class="absolute top-[250px] left-[113px]" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS">
             <img alt="CSS Icon" src="@/assets/image/icon/CSS@1x.svg">
@@ -423,7 +511,7 @@ onMounted(() => {
           <a class="absolute top-[712px] left-[115px]" href="https://postcss.org/">
             <img alt="Postcss Icon" src="@/assets/image/icon/Postcss@1x.svg">
           </a>
-          <a class="absolute top-[732px] left-[741px]" href="https://www.shadcn-vue.com/">
+          <a class="absolute top-[700px] left-[741px]" href="https://www.shadcn-vue.com/">
             <img alt="Shadcn Icon" src="@/assets/image/icon/Shadcn@1x.svg">
           </a>
           <a class="absolute top-[637px] left-[273px]" href="https://tailwindcss.com/">
@@ -442,17 +530,16 @@ onMounted(() => {
             <img alt="VueUse Icon" src="@/assets/image/icon/VueUse@1x.svg">
           </a>
         </div>
-
       </div>
     </div>
     <!--设计-->
-    <div class="bg-white min-h-[900px] py-8">
+    <div id="sc10" class="bg-white min-h-[1080px] py-8">
       <div class="flex flex-col items-center gap-3 py-8">
-        <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
+        <div id="title-sj" class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           设计至代码，无缝对接
         </div>
-        <div class="text-lg font-medium">让我们的设计不仅仅是纸上谈兵，而是真实地呈现在每一个用户的屏幕上。</div>
-        <div class="text-lg font-medium">MasterGO自动布局 + Tailwind CSS设计系统，打造统一风格的前端页面。</div>
+        <div id="title-sj" class="text-lg font-medium">让我们的设计不仅仅是纸上谈兵，而是真实地呈现在每一个用户的屏幕上。</div>
+        <div id="title-sj" class="text-lg font-medium">MasterGO自动布局 + Tailwind CSS设计系统，打造统一风格的前端页面。</div>
       </div>
       <div class="flex items-end justify-center">
         <iframe allowfullscreen height="750"

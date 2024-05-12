@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Article } from '@/types';
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import image from '@/assets/image/avatar.jpeg'
 
 interface Props {
 	article: Article;
@@ -13,8 +14,8 @@ const props = defineProps<Props>();
 	<div class="flex gap-2 items-center">
 		<Avatar size="xs">
 			<AvatarImage
-				alt="@radix-vue"
-				src="https://source.unsplash.com/random/100x100"
+				alt=""
+				:src="image"
 			/>
 		</Avatar>
 		<span class="text-slate-800">{{ props.article.authorName }}</span>

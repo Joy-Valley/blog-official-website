@@ -6,69 +6,75 @@ import { onMounted, ref } from 'vue'
 import ArticleCard from '@/components/ArticleCard.vue'
 import type { Article } from '@/types'
 
+import image0 from '@/assets/image/image0.jpg'
+import image1 from '@/assets/image/image1.jpg'
+import image2 from '@/assets/image/image2.jpg'
+import image3 from '@/assets/image/image3.jpg'
+import image4 from '@/assets/image/image4.jpg'
+
 const articleList = ref<Article[]>([
   {
     title: '皇甫松，字子奇，自号檀栾子',
     description: '多少恨，昨夜梦魂中。还似旧时游上苑，车如流。',
     authorName: 'authorName',
-    category: '分类', datetime: '2075 / 12 / 22 23:59',
-    coverImageSrc: 'https://source.unsplash.com/random/700x600'
+    category: '分类', datetime: '2075 / 12 / 22 23:59'
   },
   {
     title: '汤之问棘也是已：穷发之北，有冥海者，天池也。有鱼焉，...',
     description: '多少恨，昨夜梦魂中。还似旧时游上苑，车如流。',
     authorName: 'authorName',
-    category: '分类', datetime: '2075 / 12 / 22 23:59',
-    coverImageSrc: 'https://source.unsplash.com/random/800x600'
+    category: '分类', datetime: '2075 / 12 / 22 23:59'
   },
   {
     title: '山木，自寇也；膏火，自煎也。桂可食，故伐之；漆可用，...',
     description: '观夫明堂之宏壮也，则突兀瞳曨，乍明乍蒙，若大古元气之结空。巃嵸颓沓，若嵬若嶪，似天阃地门之开阖。尔乃划岝峉以岳立，郁穹崇而鸿纷。冠百王而垂勋，烛万象而腾文。窙惚恍以洞启，呼嵌岩而傍分。又比乎昆山之天柱，矗九霄而垂云。',
     authorName: 'authorName',
     category: '分类', datetime: '2075 / 12 / 22 23:59',
-    coverImageSrc: 'https://source.unsplash.com/random/802x600'
+    coverImageSrc: image2
   },
   {
     title: '汤之问棘也是已：穷发之北，有冥海者，天池也。有鱼焉，其...',
     description: '学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知而不愠,不亦君子乎?',
     authorName: 'authorName',
     category: '分类', datetime: '2075 / 12 / 22 23:59',
-    coverImageSrc: 'https://source.unsplash.com/random/802x600'
+    coverImageSrc: image3
   },
   {
     title: '大弦嘈嘈如急雨，小弦切切如私语。嘈嘈切切错杂弹，大珠...',
     description: '昔人已乘黄鹤去，此地空余黄鹤楼。黄鹤一去不复',
     authorName: 'authorName',
     category: '分类', datetime: '2075 / 12 / 22 23:59',
-    coverImageSrc: 'https://source.unsplash.com/random/801x600'
+    coverImageSrc: image4
   },
   {
-    title: 'Title',
-    description: 'The second item.',
+    title: '元嘉草草，封狼居胥，赢得仓',
+    description: '北冥有鱼，其名为鲲。鲲之大，不知其几千里也。化而为鸟，其名为鹏。鹏之背，不知其几千里也。怒而飞，其翼若垂天之云。是鸟也，海运则将徙于南冥。南冥者，天池也。',
     authorName: 'authorName',
     category: '分类', datetime: '2075 / 12 / 22 23:59'
   },
   {
-    title: 'Title',
-    description: 'The second item.',
+    title: '小知不及大知，小年不及大年。奚以知其然也？朝菌不知晦...',
+    description: '遥想公瑾当年，小乔初嫁了，雄姿英发。羽扇纶巾，谈笑间，樯橹灰飞烟灭。',
+    authorName: 'authorName',
+    category: '分类', datetime: '2075 / 12 / 22 23:59',
+    coverImageSrc: image1
+  },
+  {
+    title: '司马光，字君实，号迂叟，陕州夏县涑水乡人，《宋史》，...',
+    description: '蹴罢秋千，起来慵整纤纤手。露浓花瘦，薄汗轻衣透。见客入来，袜刬金钗溜。和羞走，倚门回首，却把青梅嗅。',
+    authorName: 'authorName',
+    category: '分类', datetime: '2075 / 12 / 22 23:59',
+    coverImageSrc: image0
+  },
+  {
+    title: '司马光，字君实，号迂叟，陕州夏县涑水乡人，《宋史》，...',
+    description: '王守仁，汉族，幼名云，字伯安，号阳明，封新建伯，谥文成，人称王阳明。明代最著名的思想家、文学家、哲学家和军事家。王阳明不仅是宋明心学的集大成者，一生事功也是赫赫有名，故称之为“真三不朽”其学术思想在中国、日本、朝鲜半岛以及东南亚国家乃至全球都有重要而深远的影响，因此，王守仁和孔子、孟子、朱熹并称为孔、孟、朱、王。',
     authorName: 'authorName',
     category: '分类', datetime: '2075 / 12 / 22 23:59'
   },
   {
-    title: 'Title',
-    description: 'The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.',
-    authorName: 'authorName',
-    category: '分类', datetime: '2075 / 12 / 22 23:59'
-  },
-  {
-    title: 'Title',
-    description: 'The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.The second item.',
-    authorName: 'authorName',
-    category: '分类', datetime: '2075 / 12 / 22 23:59'
-  },
-  {
-    title: 'Title',
-    description: 'The second item.',
+    title: '大弦嘈嘈如急雨，小弦切切如私语。嘈嘈切切错杂弹，大珠...',
+    description: '昔人已乘黄鹤去，此地空余黄鹤楼。黄鹤一去不复',
     authorName: 'authorName',
     category: '分类', datetime: '2075 / 12 / 22 23:59'
   }

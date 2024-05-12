@@ -78,10 +78,11 @@ gsap.registerPlugin(ScrollTrigger)
 gsap.registerPlugin(TextPlugin)
 
 onMounted(() => {
-  ScrollTrigger.defaults({
+  /*ScrollTrigger.defaults({
     toggleActions: 'restart pause resume none',
     //markers: {startColor: "green", endColor: "red", fontSize: "16px", fontWeight: "bold", indent: 20}
-  })
+  })*/
+
 
   gsap.registerEffect({
     name: "fadeOut",
@@ -97,7 +98,8 @@ onMounted(() => {
     extendTimeline: true
   });
 
-  gsap.timeline()
+  const tl1 = gsap.timeline()
+  tl1
     //标题1
     .fromTo('#title1', {
       duration: '',
@@ -108,6 +110,16 @@ onMounted(() => {
       text: '现代化响应式',
       ease: 'none'
     })
+    //描述
+    .fromTo('#title3', {
+      duration: '',
+      text: '使用',
+      ease: 'none'
+    }, {
+      duration: 2,
+      text: '使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI 开发',
+      ease: 'none'
+    },'<')
     //标题2
     .fromTo('#title2', {
       duration: '',
@@ -118,33 +130,24 @@ onMounted(() => {
       text: '博客界面',
       newClass: 'font-semibold text-indigo-600',
       ease: 'none'
-    })
+    },'-=1')
     //查看Demo按钮
     .from('#btn-lookDemo', {
       y: 50,
       opacity: 0
     })
 
-  gsap.fromTo('#title3', {
-    duration: '',
-    text: '使用',
-    ease: 'none'
-  }, {
-    duration: 2,
-    text: '使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI 开发',
-    ease: 'none'
-  })
-
-  gsap.from('#img1', { opacity: 0, scale: 1.5, y: -50, ease: 'power2.out', duration: 1.4 })
+  //gsap.from('#img1', { opacity: 0, scale: 1.5, y: -50, ease: 'power2.out', duration: 1.4 })
+  //gsap.set('#pc',{y:-200})
 
   //开头动画
-  ScrollTrigger.create({
-    trigger: '#screen1',
+  /*ScrollTrigger.create({
+    trigger: '#sc1',
     start: 'top top',
     end: 'bottom',
-    //markers: true,
+    markers: true,
     pin: true,
-  })
+  })*/
 
   //响应式动画
   ScrollTrigger.create({
@@ -158,16 +161,17 @@ onMounted(() => {
 const tl2 = gsap.timeline({
   scrollTrigger:{
     trigger: '#sc2',
-    start: 'top top',
+    start: 'top 20%',
     end: 'bottom top',
-    //markers:true,
+    markers:true,
     scrub: 2,
   }
 })
-tl2.fromTo('#pc', { x: 300 }, { x: 40})
-  .fromTo('#ip', { x: 900 }, { x: -80,ease: "power1.inOut"}, '<')
-  .fromTo('#pe', { x: 900 }, { x: -120,ease: "power1.inOut"},'-=0.4')
-  .from('#title-sc2',{y:20,opacity:0,stagger:0.2},'<')
+tl2.fromTo('#pc', { y: -100,scale:1.4 }, { y: 0,scale:1,duration:3})
+  .fromTo('#pc', { x: 300 }, { x: 40,delay:0.3,duration:2})
+  .fromTo('#ip', { x: 900 }, { x: -80,duration:5,ease: "power1.inOut"}, '<')
+  .fromTo('#pe', { x: 900 }, { x: -120,duration:5,ease: "power1.inOut"},'-=0.4')
+  .from('#title-sc2',{y:20,opacity:0,stagger:0.2,duration:2})
 
   //瀑布流动画
   ScrollTrigger.create({
@@ -203,7 +207,7 @@ tl2.fromTo('#pc', { x: 300 }, { x: 40})
   ScrollTrigger.create({
     trigger: '#sc4',
     start: 'top top',
-    end: 'bottom -500',
+    end: 'bottom -200',
     pin: true,
     //markers:true,
     id: 'sc4',
@@ -224,8 +228,9 @@ tl2.fromTo('#pc', { x: 300 }, { x: 40})
       x: -50,
       scale: 0.5,
       opacity: 0,
-      stagger: 0.2,
+      stagger: 0.3,
       ease: 'power1.inOut',
+      duration:3
     })
 
   //markDown
@@ -296,8 +301,8 @@ tl2.fromTo('#pc', { x: 300 }, { x: 40})
       //markers:true,
     }
   })
-  tl9.fromTo('#img-logo', { scale: 0.7 }, { scale: 1,ease: "power1.in"})
-    .from('#title-js',{scale:0.7, opacity:0,duration:1,ease: 'power3.Out'},'-=0.3')
+  tl9.fromTo('#img-logo', { scale: 0.7,y:100 }, { scale: 1,y:0,duration:2,ease: "power1.in"})
+    .from('#title-js',{scale:0.7, opacity:0,duration:1,ease: 'power3.Out'},'-=1')
 
   //结尾
   ScrollTrigger.create({
@@ -325,7 +330,7 @@ tl2.fromTo('#pc', { x: 300 }, { x: 40})
 <template>
   <div class="max-w-full overflow-hidden">
     <!--顶部主页-->
-    <div id="screen1" class="min-h-[1080px] pt-24">
+    <div id="sc1" class="min-h-[300px] pt-24">
       <div class="flex flex-col items-center gap-3">
         <h1 class="text-slate-700 text-5xl font-semibold"><span id="title1">现代化响应式</span> <span
           id="title2" class="font-semibold text-indigo-600">博客界面</span></h1>
@@ -337,11 +342,11 @@ tl2.fromTo('#pc', { x: 300 }, { x: 40})
           </div>
         </a>
       </div>
-      <div id="img1"
-           class="bg-pc bg-cover bg-no-repeat mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px] shadow-xl"></div>
+<!--      <div id="img1"
+           class="bg-pc bg-cover bg-no-repeat mx-auto w-[80vw] h-[45vw] rounded-2xl border-slate-700 border-[24px] border-solid mt-[60px] shadow-xl"></div>-->
     </div>
     <!--响应式-->
-    <div id="sc2" class="bg-white min-h-[900px] py-8">
+    <div id="sc2" class="min-h-[900px] py-8">
       <div class="flex flex-col items-center gap-3 py-8">
         <div id="title-sc2" class="text-5xl leading-normal font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
           响应式设计

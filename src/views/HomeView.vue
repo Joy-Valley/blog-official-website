@@ -174,9 +174,9 @@ onMounted(() => {
   })
   tl2
     .fromTo('#pc', { y: -100, scale: 1.4 }, { y: 0, scale: 1, duration: 3 })//从大到小
-    .fromTo('#pc', { x: 300 }, { x: 40, delay: 0.3, duration: 2 })//向左移动
+    .fromTo('#pc', { x: '35%' }, { x: 40, delay: 0.3, duration: 2 })//向左移动
     .fromTo('#ip', { x: 900 }, { x: -80, duration: 5, ease: 'power1.inOut' }, '<')
-    .fromTo('#pe', { x: 300 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
+    .fromTo('#pe', { x: 600 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
     .from('#title-sc2', { y: 20, opacity: 0, stagger: 0.2, duration: 2 })//标题向上渐出
 
   //瀑布流动画

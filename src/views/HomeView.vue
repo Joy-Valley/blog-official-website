@@ -174,9 +174,9 @@ onMounted(() => {
   })
   tl2
     .fromTo('#pc', { y: -100, scale: 1.4 }, { y: 0, scale: 1, duration: 3 })//从大到小
-    .fromTo('#pc', { x: 300 }, { x: 40, delay: 0.3, duration: 2 })//向左移动
+    .fromTo('#pc', { x: '35%' }, { x: 40, delay: 0.3, duration: 2 })//向左移动
     .fromTo('#ip', { x: 900 }, { x: -80, duration: 5, ease: 'power1.inOut' }, '<')
-    .fromTo('#pe', { x: 300 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
+    .fromTo('#pe', { x: 600 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
     .from('#title-sc2', { y: 20, opacity: 0, stagger: 0.2, duration: 2 })//标题向上渐出
 
   //瀑布流动画
@@ -363,7 +363,7 @@ onMounted(() => {
           id="title2" class="font-semibold text-indigo-600">博客界面</span></h1>
         <p id="title3" class="text-lg text-slate-500 font-semibold">使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI
           开发</p>
-        <a href="#">
+        <a href="http://ltnas2333.top:3000/">
           <div id="btn-lookDemo" class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold">
             查看DEMO主页
           </div>
@@ -620,7 +620,7 @@ onMounted(() => {
     </div>
     <!--页脚-->
     <div class="flex items-center justify-center py-8 border-t-2">
-      <a href="#">
+      <a href="http://ltnas2333.top:3000/">
         <div class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold">查看DEMO主页</div>
       </a>
     </div>

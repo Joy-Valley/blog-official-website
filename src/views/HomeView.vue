@@ -89,7 +89,7 @@ onMounted(() => {
     //markers: {startColor: "green", endColor: "red", fontSize: "16px", fontWeight: "bold", indent: 20}
   })*/
 
-
+  //从上到下渐出效果
   gsap.registerEffect({
     name: 'fadeOut',
     effect: (targets: any) => {
@@ -104,116 +104,131 @@ onMounted(() => {
     extendTimeline: true
   })
 
-  const tl1 = gsap.timeline()
+  //第一屏动画时间轴
+  const tl1 = gsap.timeline({
+    scrollTrigger:{
+      toggleActions: 'none pause resume none',//离开结束点暂停动画,重新进入结束点恢复
+      trigger: '#sc1',
+      start: 'top top',
+      end: 'bottom 20%',
+      //markers:true
+    }
+  })
   tl1
     //标题1
-    .fromTo('#title1', {
+    .fromTo('#title1', {//渐出+打字效果
       duration: '',
-      text: '现',
-      ease: 'none'
+      text: '现代化',
+      opacity:0
     }, {
       duration: 1,
       text: '现代化响应式',
-      ease: 'none'
+      opacity:1
     })
     //描述
-    .fromTo('#title3', {
+    .fromTo('#title3', {//渐出+打字效果
       duration: '',
-      text: '使用',
-      ease: 'none'
+      text: '使用 Vue3',
+      opacity:0
     }, {
       duration: 2,
       text: '使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI 开发',
-      ease: 'none'
+      opacity:1
     }, '<')
     //标题2
-    .fromTo('#title2', {
+    .fromTo('#title2', {//渐出+打字效果
       duration: '',
       text: '',
-      ease: 'none'
+      opacity:0
     }, {
       duration: 1,
       text: '博客界面',
       newClass: 'font-semibold text-indigo-600',
-      ease: 'none'
+      opacity:1
     }, '-=1')
     //查看Demo按钮
-    .from('#btn-lookDemo', {
+    .from('#btn-lookDemo', {//向上渐出
       y: 50,
       opacity: 0
     })
-
-  //gsap.from('#img1', { opacity: 0, scale: 1.5, y: -50, ease: 'power2.out', duration: 1.4 })
-  //gsap.set('#pc',{y:-200})
-
-  //开头动画
-  /*ScrollTrigger.create({
-    trigger: '#sc1',
-    start: 'top top',
-    end: 'bottom',
-    markers: true,
-    pin: true,
-  })*/
+  tl1.play()//开场播放动画
 
   //响应式动画
-  ScrollTrigger.create({
-    trigger: '#sc2',
-    start: 'top top',
-    end: 'bottom -500',
-    pin: true,
+  ScrollTrigger.create({//卡屏触发器
+    trigger: '#sc2',//触发目标
+    start: 'top top',//开始点为sc2容器顶部,触发点为视口顶部,视口顶部与开始点位置重叠就触发动画
+    end: 'bottom -200',//结束点为sc2容器底部,触发点为视口顶部-200px的位置,触发点低于视口用于延迟卡屏结束
+    pin: true,//卡屏
     //markers: true,
     id: 'sc2'
   })
+  //响应式设计 动画时间轴
   const tl2 = gsap.timeline({
-    scrollTrigger: {
+    scrollTrigger: {//滚轮动画触发器
       trigger: '#sc2',
       start: 'top 20%',
       end: 'bottom top',
-      markers: true,
-      scrub: 2
+      //markers: true,
+      scrub: 2//平滑阻力,动画需要2s才跟上滚动条的动画进度
     }
   })
-  tl2.fromTo('#pc', { y: -100, scale: 1.4 }, { y: 0, scale: 1, duration: 3 })
-    .fromTo('#pc', { x: 300 }, { x: 40, delay: 0.3, duration: 2 })
+  tl2
+    .fromTo('#pc', { y: -100, scale: 1.4 }, { y: 0, scale: 1, duration: 3 })//从大到小
+    .fromTo('#pc', { x: 300 }, { x: 40, delay: 0.3, duration: 2 })//向左移动
     .fromTo('#ip', { x: 900 }, { x: -80, duration: 5, ease: 'power1.inOut' }, '<')
-    .fromTo('#pe', { x: 900 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.4')
-    .from('#title-sc2', { y: 20, opacity: 0, stagger: 0.2, duration: 2 })
+    .fromTo('#pe', { x: 300 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
+    .from('#title-sc2', { y: 20, opacity: 0, stagger: 0.2, duration: 2 })//标题向上渐出
 
-  // //瀑布流动画
-  // ScrollTrigger.create({
-  //   trigger: '#sc3',
-  //   start: 'top',
-  //   end: 'bottom',
-  //   pin: true,
-  //   //markers: true,
-  //   id: 'sc3'
-  // })
-  // const tl3 = gsap.timeline({
-  //   scrollTrigger: {
-  //     trigger: '#sc3',
-  //     start: 'top 80%',
-  //     end: 'bottom 70%',
-  //     scrub: 2
-  //     //markers:true
-  //   }
-  // })
-  // tl3
-  //   .from('#card', {
-  //     y: -100,
-  //     scale: 0.8,
-  //     opacity: 0,
-  //     stagger: 0.1,
-  //     ease: 'power1.inOut',
-  //     duration: 2
-  //   })
-  //   .fadeOut('#title-pb', '-=2')
+  //瀑布流动画
+  ScrollTrigger.create({
+    trigger: '#sc3',
+    start: 'top',
+    end: 'bottom',
+    pin: true,
+    //markers: true,
+    id: 'sc3'
+  })
+  //提前布局开场环境
+  gsap.set('#card-box', { scale: 1.2, y: 60 })
+  gsap.set('#card', { opacity: 0 })
 
+  //瀑布流布局 开场动画时间轴
+  const tl3 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#sc3',
+      start: 'top 60%',//用于看到元素后触发动画
+      end: 'bottom top',
+      scrub: 1.5
+      //markers:true
+    }
+  })
+  tl3
+    .fromTo('#title-pb', { scale: 1.2, y: -200 }, { y: 220,duration:1 })//标题向下移动+视差效果
+    .to('#title-pb', { delay: 2, opacity: 0, scale: 0.5,duration:1.5 })//标题缩小渐出
+    .fromTo('#main-card', { scale: 0.1, opacity: 0 }, { scale: 1, opacity: 1,duration:1.5 }, '-=0.8')//上个动画结束前,提前0.3s开始动画,主卡片放大渐出
+    .to('#card', { opacity: 1,duration:1 })//所有卡片渐出
+    .fromTo('#card-boxA', { y: 0 }, { y: -170,duration:1.5 }, '-=0.5')//奇数列卡片上移
+    .fromTo('#card-boxB', { y: -100 }, { y: 0,duration:1.5  }, '<')//与上个动画同时进行,偶数列卡片下移
+    .to('#card-box', { scale: 0.9, y: -320,duration:0.8 }, '-=1.2')//瀑布流容器缩小+下移
+  //瀑布流布局 结尾动画时间轴
+  const tl3a = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#sc4',
+      start: 'top-=400 center',//看到瀑布流容器底部前触发动画
+      end: 'top 70%',//容器到视口70%时动画结束
+      scrub: 2,
+      //markers: true
+    }
+  })
+  tl3a
+    .fromTo('#title-pb-end', { opacity: 0 }, { opacity: 1, })//文字渐出
+    .to('#card-boxB', { y: -100, duration: 1 }, '-=0.5')//偶数列卡片上移
 
   //SSR动画
   ScrollTrigger.create({
     trigger: '#sc4',
     start: 'top top',
-    end: 'bottom -200',
+    end: 'bottom',
     pin: true,
     //markers:true,
     id: 'sc4'
@@ -269,13 +284,17 @@ onMounted(() => {
       opacity: 0,
       stagger: 0.2
     })
+  /*.to('#img-white',{
+    x: 210,
+    y:-980,
+  })*/
 
   //个性化配色动画
   ScrollTrigger.create({
     id: 'sc6',
     trigger: '#sc6',
     start: 'top',
-    end: 'bottom -200',
+    end: 'bottom',
     pin: true
     //markers:true
   })
@@ -305,12 +324,12 @@ onMounted(() => {
       trigger: '#sc9',
       start: 'top 70%',
       end: 'bottom 30%',
-      scrub: 2
+      scrub: 1
       //markers:true,
     }
   })
-  tl9.fromTo('#img-logo', { scale: 0.7, y: 100 }, { scale: 1, y: 0, duration: 2, ease: 'power1.in' })
-    .from('#title-js', { scale: 0.7, opacity: 0, duration: 1, ease: 'power3.Out' }, '-=1')
+  tl9.fromTo('#img-logo', { scale: 0.7, y: 100 }, { scale: 1, y: 0, duration: 2, ease: 'power1.out' })
+    .from('#title-js', { scale: 0.7, opacity: 0, duration: 1, ease: 'power3.out' }, '-=1')
 
   //结尾
   ScrollTrigger.create({
@@ -339,7 +358,7 @@ onMounted(() => {
   <div class="max-w-full overflow-hidden">
     <!--顶部主页-->
     <div id="sc1" class="min-h-[300px] pt-24">
-      <div class="flex flex-col items-center gap-3">
+      <div class="flex flex-col items-center gap-5">
         <h1 class="text-slate-700 text-5xl font-semibold"><span id="title1">现代化响应式</span> <span
           id="title2" class="font-semibold text-indigo-600">博客界面</span></h1>
         <p id="title3" class="text-lg text-slate-500 font-semibold">使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI
@@ -372,7 +391,7 @@ onMounted(() => {
       </div>
     </div>
     <!--瀑布流-->
-    <div id="sc3" class="bg-[#242424] w-full h-[1080px] relative overflow-hidden">
+    <div id="sc3" class="bg-[#242424] w-full h-[1200px] relative overflow-hidden">
       <div class="w-[1920px] h-full min-h-[698px] py-8 absolute top-0 left-1/2 -translate-x-1/2">
         <div class="flex flex-col items-center gap-3 py-8">
           <div id="title-pb"
@@ -381,25 +400,40 @@ onMounted(() => {
           </div>
           <div id="title-pb" class="text-2xl font-semibold text-gray-100">创意无限，内容流动</div>
         </div>
-        <div class="absolute left-1/2 -translate-x-1/2 flex w-fit gap-4">
-          <div v-for="index in 3" :key="index" class="flex flex-col gap-4 w-[300px] odd:mt-6">
-            <ArticleCard v-for="j in 4" :key="j" class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+        <div id="card-box" class="absolute left-1/2 -translate-x-1/2 flex w-fit gap-7">
+          <div id="card-boxA" class="flex flex-col gap-7 w-[300px] odd:mt-20">
+            <ArticleCard v-for="index in 6" :key="index" class="article-card"
+                         :article="articleList[Math.floor(Math.random() * 10)]" />
           </div>
-          <div class="flex flex-col gap-4 w-[300px] odd:mt-6">
-            <ArticleCard class="article-card" id="main-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+          <div id="card-boxB" class="flex flex-col gap-7 w-[300px] odd:mt-20">
+            <ArticleCard v-for="index in 6" :key="index" class="article-card"
+                         :article="articleList[Math.floor(Math.random() * 10)]" />
+          </div>
+          <div id="card-boxA" class="flex flex-col gap-7 w-[300px] odd:mt-20">
+            <ArticleCard class="article-card" id="main-card" :article="articleList[4]" />
             <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
             <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
             <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
           </div>
-          <div v-for="index in 3" :key="index" class="flex flex-col gap-4 w-[300px] odd:mt-6">
-            <ArticleCard v-for="j in 4" :key="j" class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+          <div id="card-boxB" class="flex flex-col gap-7 w-[300px] odd:mt-20">
+            <ArticleCard v-for="index in 6" :key="index" class="article-card"
+                         :article="articleList[Math.floor(Math.random() * 10)]" />
           </div>
+          <div id="card-boxA" class="flex flex-col gap-7 w-[300px] odd:mt-20">
+            <ArticleCard v-for="index in 6" :key="index" class="article-card"
+                         :article="articleList[Math.floor(Math.random() * 10)]" />
+          </div>
+          <!--          <div v-for="index in 2" :key="index" class="flex flex-col gap-7 w-[300px] odd:mt-20">
+                      <ArticleCard v-for="j in 4" :key="j" class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+                    </div>-->
         </div>
         <div
           class="absolute top-0 left-0 bottom-0 right-0 w-full bg-gradient-to-t from-[#242424] via-transparent to-transparent pointer-events-none">
         </div>
-        <div class="absolute bottom-0 w-full bg-[#242424] py-8">
-          <p class="text-center text-xl font-semibold text-white">
+        <div id="title-pb-box" class="absolute bottom-0 w-full bg-[#242424] py-8">
+          <p id="title-pb-end" class="text-center text-xl font-normal text-gray-300">
             动态的视觉效果、高度的灵活性和优化的用户体验，为内容展示提供了一种既美观又实用的解决方案</p>
         </div>
       </div>
@@ -412,7 +446,7 @@ onMounted(() => {
           SSR服务器渲染
         </div>
         <div id="title-ssr" class="text-white text-2xl font-semibold">即时渲染，SEO先行</div>
-        <div id="title-ssr" class="text-white text-lg font-medium">
+        <div id="title-ssr" class="text-gray-300 text-lg font-medium text-center">
           对于搜索引擎优化而言，服务器端渲染是一大利器。它允许搜索引擎爬虫更有效地索引您的网页内容，提高网站在搜索结果中的排名，从而吸引更多用户。
         </div>
       </div>
@@ -420,21 +454,21 @@ onMounted(() => {
         <div class="flex items-start gap-2">
           <div id="img-ssr" class="w-[100px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/internet.svg">
-            <p class="text-white text-center text-lg font-semibold">用户请求</p>
+            <p class="text-gray-300 text-center text-lg">用户请求</p>
           </div>
           <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
           <div id="img-ssr" class="w-[100px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/server.svg">
-            <p class="text-white text-center text-lg font-semibold">服务器渲染HTML</p>
+            <p class="text-gray-300 text-center text-lg">服务器渲染HTML</p>
           </div>
           <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
           <div id="img-ssr" class="w-[100px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/device.svg">
-            <p class="text-white text-center text-lg font-semibold">接收HTML/CSS
+            <p class="text-gray-300 text-center text-lg">接收HTML/CSS
               JavaScript</p>
           </div>
           <div id="img-ssr" class="w-[50px]">
@@ -442,14 +476,14 @@ onMounted(() => {
           </div>
           <div id="img-ssr" class="w-[120px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/internet.svg">
-            <p class="text-white text-center text-lg font-semibold">客户端加载</p>
+            <p class="text-gray-300 text-center text-lg">客户端加载</p>
           </div>
           <div id="img-ssr" class="w-[50px]">
             <img alt="" src="@/assets/image/arrow.svg">
           </div>
           <div id="img-ssr" class="w-[120px] flex flex-col items-center justify-center gap-2">
             <img alt="" src="@/assets/image/window.svg">
-            <p class="text-white text-center text-lg font-semibold">全部加载完成</p>
+            <p class="text-gray-300 text-center text-lg">全部加载完成</p>
           </div>
         </div>
       </div>
@@ -483,6 +517,7 @@ onMounted(() => {
         </div>
         <div class="flex items-center justify-center">
           <div
+            id="img-white"
             class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[40vw] rounded-2xl border-slate-700 border-[16px] border-solid"></div>
         </div>
       </div>

@@ -106,11 +106,11 @@ onMounted(() => {
 
   //第一屏动画时间轴
   const tl1 = gsap.timeline({
-    scrollTrigger:{
+    scrollTrigger: {
       toggleActions: 'none pause resume none',//离开结束点暂停动画,重新进入结束点恢复
       trigger: '#sc1',
       start: 'top top',
-      end: 'bottom 20%',
+      end: 'bottom 20%'
       //markers:true
     }
   })
@@ -119,32 +119,32 @@ onMounted(() => {
     .fromTo('#title1', {//渐出+打字效果
       duration: '',
       text: '现代化',
-      opacity:0
+      opacity: 0
     }, {
       duration: 1,
       text: '现代化响应式',
-      opacity:1
+      opacity: 1
     })
     //描述
     .fromTo('#title3', {//渐出+打字效果
       duration: '',
       text: '使用 Vue3',
-      opacity:0
+      opacity: 0
     }, {
       duration: 2,
       text: '使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI 开发',
-      opacity:1
+      opacity: 1
     }, '<')
     //标题2
     .fromTo('#title2', {//渐出+打字效果
       duration: '',
       text: '',
-      opacity:0
+      opacity: 0
     }, {
       duration: 1,
       text: '博客界面',
       newClass: 'font-semibold text-indigo-600',
-      opacity:1
+      opacity: 1
     }, '-=1')
     //查看Demo按钮
     .from('#btn-lookDemo', {//向上渐出
@@ -203,25 +203,29 @@ onMounted(() => {
     }
   })
   tl3
-    .fromTo('#title-pb', { scale: 1.2, y: -200 }, { y: 220,duration:1 })//标题向下移动+视差效果
-    .to('#title-pb', { delay: 2, opacity: 0, scale: 0.5,duration:1.5 })//标题缩小渐出
-    .fromTo('#main-card', { scale: 0.1, opacity: 0 }, { scale: 1, opacity: 1,duration:1.5 }, '-=0.8')//上个动画结束前,提前0.3s开始动画,主卡片放大渐出
-    .to('#card', { opacity: 1,duration:1 })//所有卡片渐出
-    .fromTo('#card-boxA', { y: 0 }, { y: -170,duration:1.5 }, '-=0.5')//奇数列卡片上移
-    .fromTo('#card-boxB', { y: -100 }, { y: 0,duration:1.5  }, '<')//与上个动画同时进行,偶数列卡片下移
-    .to('#card-box', { scale: 0.9, y: -320,duration:0.8 }, '-=1.2')//瀑布流容器缩小+下移
+    .fromTo('#title-pb', { scale: 1.2, y: -200 }, { y: 220, duration: 1 })//标题向下移动+视差效果
+    .to('#title-pb', { delay: 2, opacity: 0, scale: 0.5, duration: 1.5 })//标题缩小渐出
+    .fromTo('#main-card', { scale: 0.1, opacity: 0 }, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.5
+    }, '-=0.8')//上个动画结束前,提前0.3s开始动画,主卡片放大渐出
+    .to('#card', { opacity: 1, duration: 1 })//所有卡片渐出
+    .fromTo('#card-boxA', { y: 0 }, { y: -170, duration: 1.5 }, '-=0.5')//奇数列卡片上移
+    .fromTo('#card-boxB', { y: -100 }, { y: 0, duration: 1.5 }, '<')//与上个动画同时进行,偶数列卡片下移
+    .to('#card-box', { scale: 0.9, y: -320, duration: 0.8 }, '-=1.2')//瀑布流容器缩小+下移
   //瀑布流布局 结尾动画时间轴
   const tl3a = gsap.timeline({
     scrollTrigger: {
       trigger: '#sc4',
       start: 'top-=400 center',//看到瀑布流容器底部前触发动画
       end: 'top 70%',//容器到视口70%时动画结束
-      scrub: 2,
+      scrub: 2
       //markers: true
     }
   })
   tl3a
-    .fromTo('#title-pb-end', { opacity: 0 }, { opacity: 1, })//文字渐出
+    .fromTo('#title-pb-end', { opacity: 0 }, { opacity: 1 })//文字渐出
     .to('#card-boxB', { y: -100, duration: 1 }, '-=0.5')//偶数列卡片上移
 
   //SSR动画
@@ -402,28 +406,28 @@ onMounted(() => {
         </div>
         <div id="card-box" class="absolute left-1/2 -translate-x-1/2 flex w-fit gap-7">
           <div id="card-boxA" class="flex flex-col gap-7 w-[300px] odd:mt-20">
-            <ArticleCard v-for="index in 6" :key="index" class="article-card"
-                         :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard v-for="index in 6" :key="index" :article="articleList[Math.floor(Math.random() * 10)]"
+                         class="article-card" />
           </div>
           <div id="card-boxB" class="flex flex-col gap-7 w-[300px] odd:mt-20">
-            <ArticleCard v-for="index in 6" :key="index" class="article-card"
-                         :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard v-for="index in 6" :key="index" :article="articleList[Math.floor(Math.random() * 10)]"
+                         class="article-card" />
           </div>
           <div id="card-boxA" class="flex flex-col gap-7 w-[300px] odd:mt-20">
-            <ArticleCard class="article-card" id="main-card" :article="articleList[4]" />
-            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
-            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
-            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
-            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
-            <ArticleCard class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard id="main-card" :article="articleList[4]" class="article-card" />
+            <ArticleCard :article="articleList[Math.floor(Math.random() * 10)]" class="article-card" />
+            <ArticleCard :article="articleList[Math.floor(Math.random() * 10)]" class="article-card" />
+            <ArticleCard :article="articleList[Math.floor(Math.random() * 10)]" class="article-card" />
+            <ArticleCard :article="articleList[Math.floor(Math.random() * 10)]" class="article-card" />
+            <ArticleCard :article="articleList[Math.floor(Math.random() * 10)]" class="article-card" />
           </div>
           <div id="card-boxB" class="flex flex-col gap-7 w-[300px] odd:mt-20">
-            <ArticleCard v-for="index in 6" :key="index" class="article-card"
-                         :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard v-for="index in 6" :key="index" :article="articleList[Math.floor(Math.random() * 10)]"
+                         class="article-card" />
           </div>
           <div id="card-boxA" class="flex flex-col gap-7 w-[300px] odd:mt-20">
-            <ArticleCard v-for="index in 6" :key="index" class="article-card"
-                         :article="articleList[Math.floor(Math.random() * 10)]" />
+            <ArticleCard v-for="index in 6" :key="index" :article="articleList[Math.floor(Math.random() * 10)]"
+                         class="article-card" />
           </div>
           <!--          <div v-for="index in 2" :key="index" class="flex flex-col gap-7 w-[300px] odd:mt-20">
                       <ArticleCard v-for="j in 4" :key="j" class="article-card" :article="articleList[Math.floor(Math.random() * 10)]" />
@@ -608,11 +612,11 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex items-end justify-center">
-        <iframe allowfullscreen height="750"
+        <iframe loading="lazy" allowfullscreen height="750"
                 src="https://mastergo.com/file/124228531584653?page_id=724:15510&source=iframe_share"
                 style="border: 1px solid rgba(0, 0, 0, 0.1);"
                 width="800"></iframe>
-        <iframe allowfullscreen height="750"
+        <iframe loading="lazy" allowfullscreen height="750"
                 src="https://mastergo.com/file/124753209989828?page_id=:0579&source=iframe_share"
                 style="border: 1px solid rgba(0, 0, 0, 0.1);"
                 width="800"></iframe>

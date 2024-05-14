@@ -363,7 +363,7 @@ onMounted(() => {
           id="title2" class="font-semibold text-indigo-600">博客界面</span></h1>
         <p id="title3" class="text-lg text-slate-500 font-semibold">使用 Vue3 + Nuxt.js + Tailwind CSS + ShadcnUI
           开发</p>
-        <a href="#">
+        <a href="http://ltnas2333.top:3000/">
           <div id="btn-lookDemo" class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold">
             查看DEMO主页
           </div>
@@ -620,7 +620,7 @@ onMounted(() => {
     </div>
     <!--页脚-->
     <div class="flex items-center justify-center py-8 border-t-2">
-      <a href="#">
+      <a href="http://ltnas2333.top:3000/">
         <div class="text-white bg-slate-800 rounded-full py-2.5 px-5 text-lg font-semibold">查看DEMO主页</div>
       </a>
     </div>

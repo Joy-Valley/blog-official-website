@@ -9,6 +9,7 @@ import * as path from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:'./',
   css: {
     postcss: {
       plugins: [tailwind(), autoprefixer()],

@@ -183,8 +183,9 @@ onMounted(() => {
   tl2
     .fromTo('#pc', { y: -100, scale: 1.4 }, { y: 0, scale: 1, duration: 3 })//从大到小
     .fromTo('#pc', { x: '35%' }, { x: 40, delay: 0.3, duration: 2 })//向左移动
-    .fromTo('#ip', { x: 900 }, { x: -80, duration: 5, ease: 'power1.inOut' }, '<')
-    .fromTo('#pe', { x: 600 }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
+    // 起始位移用 vw:设备宽度随视口缩放,固定像素在宽屏下会把平板/手机留在屏幕内
+    .fromTo('#ip', { x: '50vw' }, { x: -80, duration: 5, ease: 'power1.inOut' }, '<')
+    .fromTo('#pe', { x: '40vw' }, { x: -120, duration: 5, ease: 'power1.inOut' }, '-=0.6')
     .from('#title-sc2', { y: 20, opacity: 0, stagger: 0.2, duration: 2 })//标题向上渐出
 
   //瀑布流动画
@@ -410,8 +411,9 @@ onMounted(() => {
             <div id="title-sc2" class="text-2xl font-semibold">一站适配，无缝体验</div>
           </div>
           <div class="flex items-end justify-center">
+            <!-- 缩放原点固定在顶部，避免开场 1.4 倍状态向上扩张压住上一屏的按钮 -->
             <div id="pc"
-                 class="bg-pc bg-cover bg-no-repeat w-[64vw] h-[36vw] rounded-2xl border-slate-700 border-[12px] border-solid"></div>
+                 class="origin-top bg-pc bg-cover bg-no-repeat w-[64vw] h-[36vw] rounded-2xl border-slate-700 border-[12px] border-solid"></div>
             <div id="ip"
                  class="bg-tablet bg-cover bg-no-repeat w-[28vw] h-[34vw] rounded-2xl border-slate-700 border-[10px] border-solid"></div>
             <div id="pe"
@@ -666,8 +668,6 @@ onMounted(() => {
 <style lang="postcss">
 .page-body {
   min-width: 1240px;
-  max-width: 1920px;
-
 }
 
 .technology {
